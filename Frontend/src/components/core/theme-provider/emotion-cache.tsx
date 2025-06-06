@@ -18,7 +18,9 @@ export interface NextAppDirEmotionCacheProviderProps {
 }
 
 // Adapted from https://github.com/garronej/tss-react/blob/main/src/next/appDir.tsx
-export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionCacheProviderProps): React.JSX.Element {
+export default function NextAppDirEmotionCacheProvider(
+  props: NextAppDirEmotionCacheProviderProps
+): React.JSX.Element {
   const { options, CacheProvider = DefaultCacheProvider, children } = props;
 
   const [registry] = React.useState<Registry>(() => {
@@ -59,7 +61,7 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
     inserted.forEach(({ name, isGlobal }) => {
       const style = registry.cache.inserted[name];
 
-      if (typeof style !== 'boolean') {
+      if (typeof style === 'string') {
         if (isGlobal) {
           globals.push({ name, style });
         } else {
@@ -71,16 +73,19 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
 
     return (
       <React.Fragment>
-        {globals.map(
-          ({ name, style }): React.JSX.Element => (
-            <style
-              dangerouslySetInnerHTML={{ __html: style }}
-              data-emotion={`${registry.cache.key}-global ${name}`}
-              key={name}
-            />
-          )
-        )}
-        {styles ? <style dangerouslySetInnerHTML={{ __html: styles }} data-emotion={dataEmotionAttribute} /> : null}
+        {globals.map(({ name, style }): React.JSX.Element => (
+          <style
+            dangerouslySetInnerHTML={{ __html: style }}
+            data-emotion={`${registry.cache.key}-global ${name}`}
+            key={name}
+          />
+        ))}
+        {styles ? (
+          <style
+            dangerouslySetInnerHTML={{ __html: styles }}
+            data-emotion={dataEmotionAttribute}
+          />
+        ) : null}
       </React.Fragment>
     );
   });
