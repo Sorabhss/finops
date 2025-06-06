@@ -41,9 +41,9 @@ export function AccountDetailsForm(): React.JSX.Element {
   
         if (isValidUser(data)) {
           setUser(data);
-          setFirstName(data.firstName);
-          setLastName(data.lastName);
-          setEmail(data.email);
+          // setFirstName(data.firstName);
+          // setLastName(data.lastName);
+          // setEmail(data.email);
         } else {
           setUser(null);
         }
