@@ -209,11 +209,11 @@ export default function Page(): React.JSX.Element {
         });
 
         const chartDataFormatted: Record<string, number[]> = {};
-        [...allServices].forEach((service) => {
+        Array.from(allServices).forEach((service) => {
           chartDataFormatted[service] = serviceData.map((entry) => Number(entry[service] || 0));
         });
 
-        const datasets = [...allServices].map((service, index) => ({
+        const datasets = Array.from(allServices).map((service, index) =>  ({
           label: service,
           data: chartDataFormatted[service],
           backgroundColor: `hsl(${(index * 35) % 360}, 70%, 55%)`,
