@@ -42,10 +42,11 @@ export function AccountDetailsForm(): React.JSX.Element {
       try {
         const res = await authClient.getUser();
         if (res.data && isValidUser(res.data)) {
-          setUser(res.data);
-          setFirstName(res.data.firstName);
-          setLastName(res.data.lastName);
-          setEmail(res.data.email);
+          const userData = res.data as User;
+          setUser(userData);
+          setFirstName(userData.firstName);
+          setLastName(userData.lastName);
+          setEmail(userData.email);
         } else {
           setUser(null);
         }
