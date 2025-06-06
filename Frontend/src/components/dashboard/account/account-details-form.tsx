@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import type { User } from '@/types/user'; // ✅ Use centralized User type
+import type { User } from '@/types/user';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -18,15 +18,11 @@ function isValidUser(obj: unknown): obj is User {
   return (
     typeof obj === 'object' &&
     obj !== null &&
-    'firstName' in obj &&
-    typeof (obj as any).firstName === 'string' &&
-    'lastName' in obj &&
-    typeof (obj as any).lastName === 'string' &&
-    'email' in obj &&
-    typeof (obj as any).email === 'string'
+    'firstName' in obj && typeof (obj as any).firstName === 'string' &&
+    'lastName' in obj && typeof (obj as any).lastName === 'string' &&
+    'email' in obj && typeof (obj as any).email === 'string'
   );
 }
-
 
 export function AccountDetailsForm(): React.JSX.Element {
   const [user, setUser] = React.useState<User | null>(null);
@@ -41,12 +37,11 @@ export function AccountDetailsForm(): React.JSX.Element {
     async function fetchUser() {
       try {
         const res = await authClient.getUser();
-        if (res.data && isValidUser(res.data)) {
-          const userData = res.data as User;
-          setUser(userData);
-          setFirstName(userData.firstName);
-          setLastName(userData.lastName);
-          setEmail(userData.email);
+        if (isValidUser(res.data)) {
+          setUser(res.data);
+          setFirstName(res.data.firstName);
+          setLastName(res.data.lastName);
+          setEmail(res.data.email);
         } else {
           setUser(null);
         }
@@ -71,7 +66,6 @@ export function AccountDetailsForm(): React.JSX.Element {
       const response = await authClient.updateUser(updatedData);
 
       if (!response.error) {
-        // Update only changed fields
         setUser((prev) => prev ? { ...prev, ...updatedData } : null);
       }
     } catch (error) {
@@ -81,18 +75,16 @@ export function AccountDetailsForm(): React.JSX.Element {
     }
   }
 
-  if (loading) {
-    return <div>Loading user details...</div>;
-  }
-
-  if (!user) {
-    return <div>User not authenticated.</div>;
-  }
+  if (loading) return <div>Loading user details...</div>;
+  if (!user) return <div>User not authenticated.</div>;
 
   return (
     <form onSubmit={handleSubmit}>
       <Card>
-        <CardHeader subheader="You can update your personal info below" title="Profile" />
+        <CardHeader
+          subheader="You can update your personal info below"
+          title="Profile"
+        />
         <Divider />
         <CardContent>
           <Grid container spacing={3}>
