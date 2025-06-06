@@ -30,7 +30,7 @@ const BudgetViewer = () => {
         const res = await authClient.getBudgets({
           accessKey: selectedAccountData.accessKey,
           secretKey: selectedAccountData.secretKey,
-          region: selectedAccountData.region,
+          region: 'us-east-1'//selectedAccountData.region,
         });
 
         if (res.error) {
