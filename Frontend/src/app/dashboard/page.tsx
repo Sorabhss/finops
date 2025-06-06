@@ -189,11 +189,13 @@ export default function Page(): React.JSX.Element {
         });
 
         const serviceData = serviceResult.data;
-        if (!serviceData || serviceData.length === 0) {
+
+      if (!Array.isArray(serviceData) || serviceData.length === 0) {
+         console.error("Invalid service data format:", serviceData);
           setChartData(null);
           setFetching(false);
           return;
-        }
+      }
 
         const months = serviceData.map((item: any) => item.month);
 
