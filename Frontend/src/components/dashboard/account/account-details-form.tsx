@@ -37,11 +37,13 @@ export function AccountDetailsForm(): React.JSX.Element {
     async function fetchUser() {
       try {
         const res = await authClient.getUser();
-        if (isValidUser(res.data)) {
-          setUser(res.data);
-          setFirstName(res.data.firstName);
-          setLastName(res.data.lastName);
-          setEmail(res.data.email);
+        const data: unknown = res.data;
+  
+        if (isValidUser(data)) {
+          setUser(data);
+          setFirstName(data.firstName);
+          setLastName(data.lastName);
+          setEmail(data.email);
         } else {
           setUser(null);
         }
@@ -52,10 +54,10 @@ export function AccountDetailsForm(): React.JSX.Element {
         setLoading(false);
       }
     }
-
+  
     fetchUser();
   }, []);
-
+  
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!user) return;
