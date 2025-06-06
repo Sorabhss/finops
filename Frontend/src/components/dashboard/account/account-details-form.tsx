@@ -14,14 +14,19 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Grid from '@mui/material/Unstable_Grid2';
 import { authClient } from '@/lib/auth/client';
 
-function isValidUser(obj: any): obj is User {
+function isValidUser(obj: unknown): obj is User {
   return (
-    obj &&
-    typeof obj.firstName === 'string' &&
-    typeof obj.lastName === 'string' &&
-    typeof obj.email === 'string'
+    typeof obj === 'object' &&
+    obj !== null &&
+    'firstName' in obj &&
+    typeof (obj as any).firstName === 'string' &&
+    'lastName' in obj &&
+    typeof (obj as any).lastName === 'string' &&
+    'email' in obj &&
+    typeof (obj as any).email === 'string'
   );
 }
+
 
 export function AccountDetailsForm(): React.JSX.Element {
   const [user, setUser] = React.useState<User | null>(null);
