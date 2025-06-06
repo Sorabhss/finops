@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import type { authClient } from '@/lib/auth/client';
+import { authClient } from '@/lib/auth/client';
 import type { AwsAccount } from '@/lib/auth/client';
 
 interface AwsAccountContextType {
