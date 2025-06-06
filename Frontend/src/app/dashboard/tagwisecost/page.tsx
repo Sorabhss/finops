@@ -206,7 +206,7 @@ export default function Page(): React.JSX.Element {
           const { tagValues, error: valuesError } = await authClient.getTagValues({
             accessKey: selectedAccountData.accessKey,
             secretKey: selectedAccountData.secretKey,
-             || 'us-east-1',
+            region: 'us-east-1',
             start: startDate,
             end: endDate,
             tagKey: key,
