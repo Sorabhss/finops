@@ -187,7 +187,7 @@ export default function Page(): React.JSX.Element {
         const { tagKeys: fetchedTagKeys, error: keysError } = await authClient.getAvailableTags({
           accessKey: selectedAccountData.accessKey,
           secretKey: selectedAccountData.secretKey,
-          region: selectedAccountData.region || 'us-east-1',
+          region: 'us-east-1',
           start: startDate,
           end: endDate,
         });
@@ -206,7 +206,7 @@ export default function Page(): React.JSX.Element {
           const { tagValues, error: valuesError } = await authClient.getTagValues({
             accessKey: selectedAccountData.accessKey,
             secretKey: selectedAccountData.secretKey,
-            region: selectedAccountData.region || 'us-east-1',
+             || 'us-east-1',
             start: startDate,
             end: endDate,
             tagKey: key,
@@ -268,7 +268,7 @@ export default function Page(): React.JSX.Element {
         const { data, error } = await authClient.getAwsCostsByTags({
           accessKey: selectedAccountData.accessKey,
           secretKey: selectedAccountData.secretKey,
-          region: selectedAccountData.region || 'us-east-1',
+          region: 'us-east-1',
           start: startDate,
           end: endDate,
           tag_filters: filteredTags,
@@ -277,7 +277,7 @@ export default function Page(): React.JSX.Element {
         const { data: monthlyCostData, error: month_error } = await authClient.getAwsCostsByTagsMonthly({
           accessKey: selectedAccountData.accessKey,
           secretKey: selectedAccountData.secretKey,
-          region: selectedAccountData.region || 'us-east-1',
+          region: 'us-east-1',
           start: startDate,
           end: endDate,
           tag_filters: filteredTags,
